@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Boutique - Complete Documentation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .document-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .document-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+            transform: rotate(30deg);
+        }
+
+        .document-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .document-header .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .document-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            padding: 0.5rem;
+            margin-top: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .doc-tab {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: white;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .doc-tab.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Content Sections */
+        .doc-section {
+            display: none;
+            padding: 2.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .doc-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .section-header i {
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.8rem;
+        }
+
+        .section-header h2 {
+            color: var(--dark);
+            font-size: 2.2rem;
+        }
+
+        /* Cards */
+        .info-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--primary);
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .info-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+        }
+
+        /* Diagram Containers */
+        .diagram-container {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .diagram-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mermaid {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            overflow: auto;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+        }
+
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: left;
+            padding: 1.2rem;
+            font-weight: 600;
+        }
+
+        .data-table td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: rgba(99, 102, 241, 0.05);
+        }
+
+        .data-table tr:hover {
+            background-color: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 2rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--primary);
+        }
+
+        .timeline-content {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            flex: 1;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .document-header h1 {
+                font-size: 2rem;
+            }
+            
+            .doc-section {
+                padding: 1.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-marker {
+                margin-right: 1rem;
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+            
+            .document-tabs {
+                flex-direction: column;
+            }
+            
+            .doc-tab {
+                justify-content: center;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            
+            .doc-tab {
+                display: none;
+            }
+            
+            .doc-section {
+                display: block !important;
+                page-break-inside: avoid;
+            }
+            
+            .btn {
+                display: none;
+            }
+            
+            .mermaid {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Document Header -->
+        <header class="document-header">
+            <h1><i class="fas fa-shopping-bag"></i> Fashion Boutique Online Store</h1>
+            <div class="subtitle">Complete Project Documentation with Diagrams</div>
+            <div class="document-tabs">
+                <button class="doc-tab active" data-target="overview">
+                    <i class="fas fa-home"></i> Overview
+                </button>
+                <button class="doc-tab" data-target="frd">
+                    <i class="fas fa-file-alt"></i> Functional Requirements
+                </button>
+                <button class="doc-tab" data-target="trd">
+                    <i class="fas fa-code"></i> Technical Requirements
+                </button>
+                <button class="doc-tab" data-target="architecture">
+                    <i class="fas fa-sitemap"></i> Architecture
+                </button>
+                <button class="doc-tab" data-target="workflow">
+                    <i class="fas fa-project-diagram"></i> Workflow Diagrams
+                </button>
+                <button class="doc-tab" data-target="timeline">
+                    <i class="fas fa-calendar-alt"></i> Project Timeline
+                </button>
+            </div>
+        </header>
+
+        <!-- Overview Section -->
+        <section id="overview" class="doc-section active">
+            <div class="section-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>Project Overview</h2>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-bullseye"></i> Project Vision</h3>
+                <p>Create a modern, secure, and scalable e-commerce platform for a fashion boutique to establish online presence and drive 24/7 sales. The MVP must be delivered within 40 development hours with zero monetary budget.</p>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-exclamation-triangle"></i> Key Constraints</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-tachometer-alt"></i> Project Constraints Diagram
+                    </div>
+                    <div class="mermaid">
+                        graph TD
+                            A[Project Constraints] --> B[Time: 40 Hours]
+                            A --> C[Budget: $0]
+                            A --> D[Team Skills]
+                            A --> E[Hardware Limits]
+                            
+                            B --> B1[4 Micro-Sprints<br/>10 hours each]
+                            B --> B2[2.5 hours/day<br/>4 days/week]
+                            
+                            C --> C1[Free Services Only]
+                            C --> C2[No Paid Tools]
+                            
+                            D --> D1[React: 70%]
+                            D --> D2[Node.js: 75%]
+                            D --> D3[MongoDB: 75%]
+                            
+                            E --> E1[Min: 16GB RAM, i5, 256GB SSD]
+                            E --> E2[Optimal: 32GB RAM, i7, 1TB SSD]
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-users"></i> Team Structure & Skills</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-user-check"></i> Team Skills Matrix
+                    </div>
+                    <div class="mermaid">
+                        xychart-beta
+                            title "Team Skills Proficiency"
+                            x-axis ["React", "Vue", "Angular", "Node.js", "Python", "Java", "MongoDB", "SQL", "Redis"]
+                            y-axis "Proficiency %" 0 --> 100
+                            bar [70, 35, 15, 75, 75, 5, 75, 35, 15]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Functional Requirements Section -->
+        <section id="frd" class="doc-section">
+            <div class="section-header">
+                <i class="fas fa-file-contract"></i>
+                <h2>Functional Requirements</h2>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-users-cog"></i> User Roles & Permissions</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-shield-alt"></i> Role-Based Access Control Diagram
+                    </div>
+                    <div class="mermaid">
+                        graph TB
+                            subgraph "User Hierarchy"
+                                A[Anonymous Visitor]
+                                B[Registered Customer]
+                                C[Store Administrator]
+                            end
+                            
+                            subgraph "Anonymous Visitor Permissions"
+                                A_P1[Read: Product Catalog]
+                                A_P2[View Product Details]
+                            end
+                            
+                            subgraph "Customer Permissions"
+                                B_P1[Read: Own Data]
+                                B_P2[Create: Orders]
+                                B_P3[Update: Profile]
+                                B_P4[View Order History]
+                            end
+                            
+                            subgraph "Admin Permissions"
+                                C_P1[Full CRUD: All Data]
+                                C_P2[Access: Admin Panel]
+                                C_P3[Manage Products]
+                                C_P4[Manage Orders]
+                            end
+                            
+                            A --> A_P1
+                            A --> A_P2
+                            B --> B_P1
+                            B --> B_P2
+                            B --> B_P3
+                            B --> B_P4
+                            C --> C_P1
+                            C --> C_P2
+                            C --> C_P3
+                            C --> C_P4
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-shopping-cart"></i> E-commerce Workflow</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-exchange-alt"></i> Customer Journey Flow
+                    </div>
+                    <div class="mermaid">
+                        flowchart TD
+                            Start([Start]) --> Browse[Browse Products]
+                            Browse --> View[View Product Details]
+                            View --> Add{Add to Cart?}
+                            Add -->|Yes| Cart[Shopping Cart]
+                            Add -->|No| Browse
+                            
+                            Cart --> Checkout[Proceed to Checkout]
+                            Checkout --> Auth{Authenticated?}
+                            Auth -->|No| Login[Login/Register]
+                            Auth -->|Yes| Shipping[Shipping Details]
+                            
+                            Login --> Shipping
+                            Shipping --> Payment[Payment]
+                            Payment --> Review[Order Review]
+                            Review --> Confirm[Confirm Order]
+                            Confirm --> Success[Order Success]
+                            Confirm --> Cancel[Cancel]
+                            Cancel --> Browse
+                            
+                            Success --> History[View Order History]
+                            History --> Browse
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-tasks"></i> Scope Definition</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>In-Scope (MVP)</th>
+                            <th>Out-of-Scope</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Product Catalog</td>
+                            <td><i class="fas fa-check" style="color: var(--success);"></i> Basic browsing & filtering</td>
+                            <td><i class="fas fa-times" style="color: var(--danger);"></i> Advanced recommendations</td>
+                            <td>P1</td>
+                        </tr>
+                        <tr>
+                            <td>User Management</td>
+                            <td><i class="fas fa-check" style="color: var(--success);"></i> Registration & login</td>
+                            <td><i class="fas fa-times" style="color: var(--danger);"></i> Social login</td>
+                            <td>P1</td>
+                        </tr>
+                        <tr>
+                            <td>Shopping Cart</td>
+                            <td><i class="fas fa-check" style="color: var(--success);"></i> Basic cart operations</td>
+                            <td><i class="fas fa-times" style="color: var(--danger);"></i> Wishlists</td>
+                            <td>P1</td>
+                        </tr>
+                        <tr>
+                            <td>Checkout</td>
+                            <td><i class="fas fa-check" style="color: var(--success);"></i> Basic payment flow</td>
+                            <td><i class="fas fa-times" style="color: var(--danger);"></i> Multiple payment methods</td>
+                            <td>P1</td>
+                        </tr>
+                        <tr>
+                            <td>Admin Panel</td>
+                            <td><i class="fas fa-check" style="color: var(--success);"></i> Product & order management</td>
+                            <td><i class="fas fa-times" style="color: var(--danger);"></i> Advanced analytics</td>
+                            <td>P2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Technical Requirements Section -->
+        <section id="trd" class="doc-section">
+            <div class="section-header">
+                <i class="fas fa-microchip"></i>
+                <h2>Technical Requirements</h2>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-layer-group"></i> Technology Stack Selection</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-code-branch"></i> Tech Stack Decision Tree
+                    </div>
+                    <div class="mermaid">
+                        flowchart TD
+                            Start([Technology Selection]) --> Frontend{Frontend Framework?}
+                            
+                            Frontend -->|React 70% Skill| React[Choose React]
+                            Frontend -->|Vue 35% Skill| Vue[Consider Vue]
+                            Frontend -->|Angular 15% Skill| Angular[Reject Angular]
+                            
+                            React --> Backend{Backend Technology?}
+                            
+                            Backend -->|Node.js 75% Skill| Node[Choose Node.js]
+                            Backend -->|Python 75% Skill| Python[Consider Python]
+                            Backend -->|Java 5% Skill| Java[Reject Java]
+                            
+                            Node --> Database{Database?}
+                            
+                            Database -->|MongoDB 75% Skill| Mongo[Choose MongoDB]
+                            Database -->|SQL 35% Skill| SQL[Reject SQL]
+                            
+                            Mongo --> Final[Final Stack:<br/>React + Node.js + MongoDB]
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-server"></i> Hardware Requirements</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-desktop"></i> Hardware Specification Comparison
+                    </div>
+                    <div class="mermaid">
+                        bar
+                            title "Hardware Requirements"
+                            x-axis ["RAM", "CPU", "Storage", "GPU"]
+                            y-axis "Performance Level" 0 --> 10
+                            "Minimum (16GB, i5, 256GB)" : [6, 6, 6, 4]
+                            "Recommended (32GB, i7, 1TB)" : [10, 10, 10, 8]
+                            "Absolute Minimum" : [2, 2, 2, 2]
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-database"></i> Database Schema Design</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-table"></i> Entity Relationship Diagram
+                    </div>
+                    <div class="mermaid">
+                        erDiagram
+                            USERS {
+                                string email PK
+                                string password
+                                string name
+                                string role
+                                datetime createdAt
+                            }
+                            
+                            PRODUCTS {
+                                string _id PK
+                                string name
+                                string description
+                                number price
+                                array images
+                                string category
+                                number stock
+                                boolean isActive
+                            }
+                            
+                            ORDERS {
+                                string _id PK
+                                ObjectId userId FK
+                                array items
+                                number totalAmount
+                                object shippingAddress
+                                string status
+                                datetime createdAt
+                            }
+                            
+                            ADDRESSES {
+                                ObjectId userId FK
+                                string street
+                                string city
+                                string zipCode
+                                string country
+                            }
+                            
+                            USERS ||--o{ ORDERS : "places"
+                            USERS ||--o{ ADDRESSES : "has"
+                            ORDERS }o--|| PRODUCTS : "contains"
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="doc-section">
+            <div class="section-header">
+                <i class="fas fa-sitemap"></i>
+                <h2>System Architecture</h2>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-network-wired"></i> Overall System Architecture</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-project-diagram"></i> High-Level Architecture Diagram
+                    </div>
+                    <div class="mermaid">
+                        graph TB
+                            subgraph "Client Layer"
+                                Browser[Web Browser]
+                                Mobile[Mobile Browser]
+                            end
+                            
+                            subgraph "Presentation Layer"
+                                React[React Application]
+                                Router[React Router]
+                                Components[UI Components]
+                            end
+                            
+                            subgraph "API Layer"
+                                Express[Express.js Server]
+                                Routes[API Routes]
+                                Middleware[Auth Middleware]
+                            end
+                            
+                            subgraph "Business Layer"
+                                Controllers[Business Logic]
+                                Services[Service Layer]
+                                Validation[Input Validation]
+                            end
+                            
+                            subgraph "Data Layer"
+                                MongoDB[(MongoDB Atlas)]
+                                Mongoose[Mongoose ODM]
+                                Cache[(Optional Redis Cache)]
+                            end
+                            
+                            Browser --> React
+                            Mobile --> React
+                            React --> Express
+                            Express --> Controllers
+                            Controllers --> MongoDB
+                            
+                            Router --> Components
+                            Routes --> Middleware
+                            Middleware --> Validation
+                            Validation --> Services
+                            Services --> Mongoose
+                            Mongoose --> Cache
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-shield-alt"></i> Security Architecture</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-lock"></i> Security Layer Diagram
+                    </div>
+                    <div class="mermaid">
+                        flowchart TD
+                            subgraph "Security Layers"
+                                L1[Network Layer<br/>HTTPS/TLS]
+                                L2[Application Layer<br/>JWT Authentication]
+                                L3[Data Layer<br/>Input Validation]
+                                L4[Database Layer<br/>Password Hashing]
+                            end
+                            
+                            subgraph "Security Components"
+                                C1[Rate Limiting]
+                                C2[Helmet.js Headers]
+                                C3[BCrypt Password]
+                                C4[CORS Policy]
+                                C5[Environment Variables]
+                            end
+                            
+                            Client[Client Request] --> L1
+                            L1 --> L2
+                            L2 --> L3
+                            L3 --> L4
+                            L4 --> Server[Server Response]
+                            
+                            C1 --> L2
+                            C2 --> L1
+                            C3 --> L4
+                            C4 --> L2
+                            C5 --> L4
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-exchange-alt"></i> API Request Flow</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-route"></i> API Request Sequence Diagram
+                    </div>
+                    <div class="mermaid">
+                        sequenceDiagram
+                            participant C as Client
+                            participant A as Auth Middleware
+                            participant V as Validation
+                            participant S as Service
+                            participant D as Database
+                            
+                            C->>A: HTTP Request with JWT
+                            A->>A: Verify Token
+                            alt Invalid Token
+                                A->>C: 401 Unauthorized
+                            else Valid Token
+                                A->>V: Pass Request
+                                V->>V: Validate Input
+                                alt Invalid Input
+                                    V->>C: 400 Bad Request
+                                else Valid Input
+                                    V->>S: Process Request
+                                    S->>D: Database Query
+                                    D->>S: Query Results
+                                    S->>C: 200 Success + Data
+                                end
+                            end
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workflow Diagrams Section -->
+        <section id="workflow" class="doc-section">
+            <div class="section-header">
+                <i class="fas fa-project-diagram"></i>
+                <h2>Workflow & Process Diagrams</h2>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-user-check"></i> Authentication Flow</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-sign-in-alt"></i> User Authentication Sequence
+                    </div>
+                    <div class="mermaid">
+                        sequenceDiagram
+                            participant U as User
+                            participant F as Frontend
+                            participant B as Backend
+                            participant DB as Database
+                            
+                            U->>F: Enter credentials
+                            F->>B: POST /api/auth/login
+                            B->>DB: Find user by email
+                            DB->>B: Return user record
+                            
+                            alt Valid Credentials
+                                B->>B: Compare password hash
+                                B->>B: Generate JWT token
+                                B->>F: Return JWT token
+                                F->>F: Store token in localStorage
+                                F->>U: Redirect to dashboard
+                            else Invalid Credentials
+                                B->>F: Return 401 error
+                                F->>U: Show error message
+                            end
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-shopping-cart"></i> Order Processing Flow</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-cart-plus"></i> Order Creation & Processing
+                    </div>
+                    <div class="mermaid">
+                        flowchart TD
+                            Start([Start Order]) --> Cart[Get Cart Items]
+                            Cart --> CheckStock{Check Stock}
+                            
+                            CheckStock -->|In Stock| Calc[Calculate Total]
+                            CheckStock -->|Out of Stock| Error[Show Error]
+                            
+                            Calc --> Payment[Process Payment]
+                            Payment --> Status{Payment Success?}
+                            
+                            Status -->|Yes| CreateOrder[Create Order Record]
+                            Status -->|No| PaymentError[Payment Failed]
+                            
+                            CreateOrder --> UpdateStock[Update Inventory]
+                            UpdateStock --> ClearCart[Clear User Cart]
+                            ClearCart --> Email[Send Confirmation Email]
+                            Email --> Success[Order Created Successfully]
+                            
+                            Error --> Cart
+                            PaymentError --> Payment
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-cogs"></i> Admin Workflow</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-user-cog"></i> Product Management Flow
+                    </div>
+                    <div class="mermaid">
+                        stateDiagram-v2
+                            [*] --> AdminLogin
+                            AdminLogin --> Dashboard: Successful Login
+                            
+                            state Dashboard {
+                                [*] --> ViewProducts
+                                ViewProducts --> AddProduct: Click Add
+                                ViewProducts --> EditProduct: Click Edit
+                                ViewProducts --> DeleteProduct: Click Delete
+                                
+                                AddProduct --> SaveProduct: Click Save
+                                EditProduct --> SaveProduct: Click Save
+                                DeleteProduct --> ConfirmDelete: Confirm
+                                
+                                SaveProduct --> ValidateProduct
+                                ConfirmDelete --> ValidateDelete
+                                
+                                ValidateProduct --> ViewProducts: Success
+                                ValidateDelete --> ViewProducts: Success
+                            }
+                            
+                            Dashboard --> [*]: Logout
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-sync-alt"></i> Data Synchronization</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-database"></i> Real-time Data Flow
+                    </div>
+                    <div class="mermaid">
+                        flowchart LR
+                            subgraph "Frontend"
+                                F1[React Components]
+                                F2[State Management]
+                                F3[API Service]
+                            end
+                            
+                            subgraph "Backend"
+                                B1[API Routes]
+                                B2[Controllers]
+                                B3[Services]
+                            end
+                            
+                            subgraph "Database"
+                                DB1[(MongoDB)]
+                                DB2[(Redis Cache)]
+                            end
+                            
+                            F1 --> F2
+                            F2 --> F3
+                            F3 --> B1
+                            B1 --> B2
+                            B2 --> B3
+                            B3 --> DB1
+                            B3 --> DB2
+                            
+                            DB1 -.->|Change Stream| B3
+                            B3 -.->|WebSocket| F3
+                            F3 -.->|Update State| F2
+                            F2 -.->|Re-render| F1
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Timeline Section -->
+        <section id="timeline" class="doc-section">
+            <div class="section-header">
+                <i class="fas fa-calendar-alt"></i>
+                <h2>Project Timeline & Sprint Planning</h2>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-hourglass-half"></i> 40-Hour Development Timeline</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-chart-gantt"></i> Gantt Chart - Project Timeline
+                    </div>
+                    <div class="mermaid">
+                        gantt
+                            title Fashion Boutique MVP - 40 Hour Development Plan
+                            dateFormat HH
+                            axisFormat %Hh
+                            
+                            section Sprint 1: Foundation
+                            Project Setup :crit, milestone, 0, 2h
+                            Database Design : 2h, 3h
+                            Auth System : 5h, 3h
+                            Basic API : 8h, 2h
+                            
+                            section Sprint 2: Core Features
+                            Product Catalog :crit, 10h, 4h
+                            Shopping Cart : 14h, 3h
+                            React Frontend : 17h, 3h
+                            
+                            section Sprint 3: Commerce Flow
+                            Checkout System :crit, 20h, 4h
+                            Order Management : 24h, 3h
+                            Admin Panel : 27h, 3h
+                            
+                            section Sprint 4: Polish & Deploy
+                            User Profiles : 30h, 3h
+                            Security Testing : 33h, 3h
+                            Deployment :crit, milestone, 36h, 4h
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-tasks"></i> Sprint Breakdown & Dependencies</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-code-branch"></i> Task Dependency Network
+                    </div>
+                    <div class="mermaid">
+                        graph TD
+                            Start([Project Start]) --> S1[Sprint 1: Foundation]
+                            Start --> S2[Sprint 2: Core Features]
+                            Start --> S3[Sprint 3: Commerce]
+                            Start --> S4[Sprint 4: Polish]
+                            
+                            S1 --> T1_1[Setup]
+                            S1 --> T1_2[Database]
+                            S1 --> T1_3[Auth]
+                            S1 --> T1_4[Basic API]
+                            
+                            S2 --> T2_1[Product Catalog]
+                            S2 --> T2_2[Shopping Cart]
+                            S2 --> T2_3[React Frontend]
+                            
+                            S3 --> T3_1[Checkout]
+                            S3 --> T3_2[Orders]
+                            S3 --> T3_3[Admin Panel]
+                            
+                            S4 --> T4_1[Profiles]
+                            S4 --> T4_2[Security]
+                            S4 --> T4_3[Deployment]
+                            
+                            T1_1 --> T1_2
+                            T1_2 --> T1_3
+                            T1_3 --> T1_4
+                            T1_4 --> T2_1
+                            T2_1 --> T2_2
+                            T2_2 --> T2_3
+                            T2_3 --> T3_1
+                            T3_1 --> T3_2
+                            T3_2 --> T3_3
+                            T3_3 --> T4_1
+                            T4_1 --> T4_2
+                            T4_2 --> T4_3
+                            
+                            T4_3 --> End([Project Completion])
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-chart-pie"></i> Time Allocation</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-chart-pie"></i> Development Time Distribution
+                    </div>
+                    <div class="mermaid">
+                        pie title 40-Hour Time Allocation
+                            "Sprint 1: Foundation" : 10
+                            "Sprint 2: Core Features" : 10
+                            "Sprint 3: Commerce Flow" : 10
+                            "Sprint 4: Polish & Deploy" : 10
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-road"></i> Critical Path Analysis</h3>
+                <div class="diagram-container">
+                    <div class="diagram-title">
+                        <i class="fas fa-exclamation-circle"></i> Project Critical Path
+                    </div>
+                    <div class="mermaid">
+                        graph LR
+                            CP[Critical Path] --> CP1[Setup & Configuration]
+                            CP1 --> CP2[Database & Auth]
+                            CP2 --> CP3[Product Catalog]
+                            CP3 --> CP4[Checkout System]
+                            CP4 --> CP5[Deployment]
+                            
+                            NP1[Non-critical] --> NP2[Admin Panel Polish]
+                            NP2 --> NP3[Advanced Features]
+                            
+                            style CP fill:#f00,color:#fff
+                            style CP1 fill:#f00,color:#fff
+                            style CP2 fill:#f00,color:#fff
+                            style CP3 fill:#f00,color:#fff
+                            style CP4 fill:#f00,color:#fff
+                            style CP5 fill:#f00,color:#fff
+                            
+                            style NP1 fill:#0f0,color:#000
+                            style NP2 fill:#0f0,color:#000
+                            style NP3 fill:#0f0,color:#000
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <h3 style="margin: 2rem 0 1rem 0; color: var(--primary-dark);">
+                    <i class="fas fa-history"></i> Development Timeline Details
+                </h3>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">W1</div>
+                    <div class="timeline-content">
+                        <h4>Sprint 1: Foundation (Hours 0-10)</h4>
+                        <p><strong>Focus:</strong> Project setup, database design, authentication system</p>
+                        <ul>
+                            <li>Initialize React + Node.js projects</li>
+                            <li>Setup MongoDB Atlas connection</li>
+                            <li>Implement JWT authentication</li>
+                            <li>Create basic API structure</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">W2</div>
+                    <div class="timeline-content">
+                        <h4>Sprint 2: Core Features (Hours 10-20)</h4>
+                        <p><strong>Focus:</strong> Product catalog, shopping cart, React frontend</p>
+                        <ul>
+                            <li>Product listing and detail pages</li>
+                            <li>Shopping cart functionality</li>
+                            <li>React component library</li>
+                            <li>Responsive design implementation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">W3</div>
+                    <div class="timeline-content">
+                        <h4>Sprint 3: Commerce Flow (Hours 20-30)</h4>
+                        <p><strong>Focus:</strong> Checkout system, order management, admin panel</p>
+                        <ul>
+                            <li>Complete checkout process</li>
+                            <li>Order creation and management</li>
+                            <li>Basic admin dashboard</li>
+                            <li>Payment integration (sandbox)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">W4</div>
+                    <div class="timeline-content">
+                        <h4>Sprint 4: Polish & Deploy (Hours 30-40)</h4>
+                        <p><strong>Focus:</strong> User profiles, security testing, deployment</p>
+                        <ul>
+                            <li>User profile management</li>
+                            <li>Security audit and testing</li>
+                            <li>Performance optimization</li>
+                            <li>Deployment to free hosting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 2rem; background: var(--light); border-top: 1px solid var(--border);">
+            <p style="margin-bottom: 1rem; color: var(--dark);">
+                <strong>Fashion Boutique Online Store - Complete Documentation</strong>
+            </p>
+            <p style="color: var(--dark); opacity: 0.8; margin-bottom: 1.5rem;">
+                Version 2.0 | Generated with Mermaid Diagrams | All diagrams are interactive
+            </p>
+            <div>
+                <button class="btn btn-primary" id="printBtn">
+                    <i class="fas fa-print"></i> Print Complete Documentation
+                </button>
+                <button class="btn btn-primary" id="exportBtn" style="margin-left: 1rem;">
+                    <i class="fas fa-file-pdf"></i> Export as PDF
+                </button>
+                <button class="btn btn-primary" id="refreshDiagrams" style="margin-left: 1rem;">
+                    <i class="fas fa-sync-alt"></i> Refresh Diagrams
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Mermaid with Mermaid 10.6.1 compatible configuration
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            sequence: {
+                useMaxWidth: true,
+                height: 50,
+                actorMargin: 50
+            },
+            gantt: {
+                useMaxWidth: true,
+                topPadding: 50,
+                rightPadding: 20
+            },
+            er: {
+                useMaxWidth: true
+            }
+        });
+
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.doc-tab');
+            const sections = document.querySelectorAll('.doc-section');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetId = tab.getAttribute('data-target');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show target section
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(targetId).classList.add('active');
+                    
+                    // Refresh mermaid diagrams in the new section
+                    setTimeout(() => {
+                        mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+                    }, 300);
+                });
+            });
+            
+            // Print functionality
+            document.getElementById('printBtn').addEventListener('click', () => {
+                window.print();
+            });
+            
+            // Export as PDF (simulated)
+            document.getElementById('exportBtn').addEventListener('click', () => {
+                alert('In a real application, this would generate a PDF export. For now, use browser print to PDF.');
+            });
+            
+            // Refresh diagrams
+            document.getElementById('refreshDiagrams').addEventListener('click', () => {
+                // Remove and re-render all mermaid diagrams
+                const mermaidContainers = document.querySelectorAll('.mermaid');
+                mermaidContainers.forEach(container => {
+                    const content = container.innerHTML;
+                    container.innerHTML = content;
+                });
+                
+                // Re-initialize mermaid
+                mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+                
+                // Show success message
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: var(--success);
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: var(--radius);
+                    z-index: 1000;
+                    box-shadow: var(--shadow);
+                `;
+                notification.innerHTML = '<i class="fas fa-check"></i> Diagrams refreshed successfully';
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.5s';
+                    setTimeout(() => notification.remove(), 500);
+                }, 2000);
+            });
+            
+            // Auto-refresh diagrams when switching tabs
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    setTimeout(() => {
+                        mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+                    }, 100);
+                });
+            });
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey) {
+                    const currentIndex = Array.from(tabs).findIndex(t => t.classList.contains('active'));
+                    let nextIndex;
+                    
+                    switch(e.key) {
+                        case 'ArrowLeft':
+                            e.preventDefault();
+                            nextIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
+                            tabs[nextIndex].click();
+                            break;
+                        case 'ArrowRight':
+                            e.preventDefault();
+                            nextIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
+                            tabs[nextIndex].click();
+                            break;
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                            e.preventDefault();
+                            const index = parseInt(e.key) - 1;
+                            if (index < tabs.length) {
+                                tabs[index].click();
+                            }
+                            break;
+                    }
+                }
+            });
+            
+            // Initialize all diagrams
+            setTimeout(() => {
+                mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+            }, 500);
+        });
+    </script>
+</body>
+</html>
