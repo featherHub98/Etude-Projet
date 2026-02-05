@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Boutique - Functional Requirements Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --primary-dark: #5d1a9c;
+            --secondary: #ff6b9d;
+            --light: #f8f9ff;
+            --dark: #2d2a4a;
+            --success: #00c897;
+            --warning: #ffb347;
+            --danger: #ff6b6b;
+            --info: #4d96ff;
+            --border: #e0e0ff;
+            --shadow: 0 4px 20px rgba(138, 43, 226, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .document-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .document-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+
+        .document-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .document-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .document-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-top: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .meta-item i {
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+
+        /* Content Sections */
+        .section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 5px solid var(--primary);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.15);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-title i {
+            color: var(--secondary);
+            background: rgba(255, 107, 157, 0.1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: left;
+            padding: 1rem;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(138, 43, 226, 0.03);
+        }
+
+        tr:hover {
+            background-color: rgba(138, 43, 226, 0.08);
+        }
+
+        /* Lists */
+        .requirements-list {
+            list-style-type: none;
+        }
+
+        .requirements-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--light);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--info);
+            transition: var(--transition);
+        }
+
+        .requirements-list li:hover {
+            background: white;
+            border-left-color: var(--success);
+            transform: translateX(5px);
+        }
+
+        .requirement-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .requirement-title .badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .status-in-scope {
+            background: rgba(0, 200, 151, 0.15);
+            color: var(--success);
+        }
+
+        .status-out-scope {
+            background: rgba(255, 107, 107, 0.15);
+            color: var(--danger);
+        }
+
+        .status-high {
+            background: rgba(255, 179, 71, 0.15);
+            color: var(--warning);
+        }
+
+        /* Constraints Box */
+        .constraints-box {
+            background: linear-gradient(135deg, #fff8f0, #fff0f8);
+            border: 2px dashed var(--warning);
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+        }
+
+        .constraints-box h4 {
+            color: var(--warning);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Sign-off Section */
+        .sign-off-section {
+            background: linear-gradient(135deg, #f0f8ff, #f8f0ff);
+            border: 2px solid var(--primary);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            margin-top: 3rem;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .signature-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .signature-line {
+            height: 2px;
+            background: var(--border);
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            background: var(--light);
+            border: none;
+            border-radius: var(--radius) var(--radius) 0 0;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .document-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .document-meta {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .tab-content {
+                display: block !important;
+            }
+            
+            .tabs {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Document Header -->
+        <header class="document-header">
+            <h1><i class="fas fa-file-contract"></i> Fashion Boutique Online Store</h1>
+            <div class="subtitle">Functional Requirements Document (FRD) - Version 1.2</div>
+            
+            <div class="document-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div>
+                        <strong>Date:</strong> October 26, 2023
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-user-tie"></i>
+                    <div>
+                        <strong>Project Sponsor:</strong> Boutique Owner
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-user-edit"></i>
+                    <div>
+                        <strong>Primary Author:</strong> Business Analyst / Project Lead
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Status:</strong> <span class="status-indicator status-high">CONSTRAINED TIMELINE</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs" id="mainTabs">
+            <button class="tab active" data-target="overview">Overview</button>
+            <button class="tab" data-target="scope">Scope & Roles</button>
+            <button class="tab" data-target="requirements">Requirements</button>
+            <button class="tab" data-target="project">Project Management</button>
+            <button class="tab" data-target="constraints">Constraints</button>
+            <button class="tab" data-target="signoff">Sign-off</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content active" id="overview">
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-info-circle"></i> Introduction & Purpose</h2>
+                <p>This document defines the functional requirements for the Fashion Boutique Online Store project within the established project constraints. It describes <strong>what</strong> the system must do from the perspective of its users and the business, without specifying <strong>how</strong> it will be implemented technically.</p>
+                <p>This serves as the primary agreement between stakeholders and the development team for the system's capabilities. All requirements include a clear <strong>Definition of Done (DoD)</strong>.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-bullseye"></i> Project Vision & Objectives</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3><i class="fas fa-eye"></i> Vision</h3>
+                        <p>To create a simple, elegant, and secure online storefront that extends the boutique's brand presence and enables 24/7 sales.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-flag"></i> Primary Objective</h3>
+                        <p>Launch a Minimum Viable Product (MVP) within the severe time and budget constraints (40 core hours, zero monetary budget).</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-check-circle"></i> Success Criteria</h3>
+                        <ul style="padding-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>A deployable system delivered within 40-hour timeline</li>
+                            <li>Owner can independently manage core operations</li>
+                            <li>Customers can complete purchases securely</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scope & Roles Tab -->
+        <div class="tab-content" id="scope">
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-tasks"></i> Scope Definition</h2>
+                
+                <h3 style="color: var(--primary-dark); margin: 1.5rem 0 1rem 0;">In-Scope (MVP Features)</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <span class="status-indicator status-in-scope"><i class="fas fa-check"></i> IN-SCOPE</span>
+                        <p>Public-facing product catalog with browsing</p>
+                    </div>
+                    <div class="card">
+                        <span class="status-indicator status-in-scope"><i class="fas fa-check"></i> IN-SCOPE</span>
+                        <p>User registration and authentication</p>
+                    </div>
+                    <div class="card">
+                        <span class="status-indicator status-in-scope"><i class="fas fa-check"></i> IN-SCOPE</span>
+                        <p>Shopping cart and secure checkout</p>
+                    </div>
+                    <div class="card">
+                        <span class="status-indicator status-in-scope"><i class="fas fa-check"></i> IN-SCOPE</span>
+                        <p>Basic order management for owner</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--primary-dark); margin: 2rem 0 1rem 0;">Out-of-Scope</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <span class="status-indicator status-out-scope"><i class="fas fa-times"></i> OUT-OF-SCOPE</span>
+                        <p>Customer loyalty programs & advanced promotions</p>
+                    </div>
+                    <div class="card">
+                        <span class="status-indicator status-out-scope"><i class="fas fa-times"></i> OUT-OF-SCOPE</span>
+                        <p>Product recommendation engines</p>
+                    </div>
+                    <div class="card">
+                        <span class="status-indicator status-out-scope"><i class="fas fa-times"></i> OUT-OF-SCOPE</span>
+                        <p>Integration with physical POS systems</p>
+                    </div>
+                    <div class="card">
+                        <span class="status-indicator status-out-scope"><i class="fas fa-times"></i> OUT-OF-SCOPE</span>
+                        <p>Native mobile applications</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-users"></i> User Roles, Personas & Permissions</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Persona Example</th>
+                                <th>Key Goals</th>
+                                <th>System Permissions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Anonymous Visitor</strong></td>
+                                <td>"Casual Browser"</td>
+                                <td>Browse products, view details</td>
+                                <td><span class="status-indicator" style="background:#e0f7fa;color:#006064;">READ: Public catalog</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Registered Customer</strong></td>
+                                <td>"Loyal Client"</td>
+                                <td>Purchase, track orders, save details</td>
+                                <td>
+                                    <span class="status-indicator" style="background:#e8f5e9;color:#1b5e20;margin:2px;">READ: Own data</span>
+                                    <span class="status-indicator" style="background:#f3e5f5;color:#4a148c;margin:2px;">CREATE: Orders/Account</span>
+                                    <span class="status-indicator" style="background:#e1f5fe;color:#01579b;margin:2px;">UPDATE: Profile</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Store Administrator</strong></td>
+                                <td>"Business Owner"</td>
+                                <td>Full operational control</td>
+                                <td>
+                                    <span class="status-indicator" style="background:#ffebee;color:#b71c1c;margin:2px;">FULL CRUD: All data</span>
+                                    <span class="status-indicator" style="background:#fce4ec;color:#880e4f;margin:2px;">ACCESS: Admin panel</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Requirements Tab -->
+        <div class="tab-content" id="requirements">
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-clipboard-check"></i> Definition of Done (DoD)</h2>
+                <p>For any functional requirement to be considered complete, <strong>all</strong> of the following conditions must be met:</p>
+                
+                <div class="card-grid" style="margin-top: 1.5rem;">
+                    <div class="card">
+                        <h3><i class="fas fa-code"></i> 1. Implemented</h3>
+                        <p>According to spec, using approved technology stack</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-vial"></i> 2. Tested</h3>
+                        <p>Passes acceptance tests; no critical bugs (P1/P2)</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-puzzle-piece"></i> 3. Integrated</h3>
+                        <p>Works with existing components</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-file-alt"></i> 4. Documented</h3>
+                        <p>Minimal necessary user/developer notes added</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-code-branch"></i> 5. Reviewed & Merged</h3>
+                        <p>Code reviewed and merged to main branch</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-thumbs-up"></i> 6. Accepted</h3>
+                        <p>Verified by Product Owner against FRD</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-list-ol"></i> Detailed Functional Requirements</h2>
+                
+                <h3 style="color: var(--primary-dark); margin: 1.5rem 0 1rem 0; padding-left: 10px; border-left: 4px solid var(--info);">
+                    <i class="fas fa-store"></i> Public Website (Frontend)
+                </h3>
+                
+                <ul class="requirements-list">
+                    <li>
+                        <div class="requirement-title">
+                            <span class="badge">FR-01</span> Product Catalog Browsing
+                        </div>
+                        <p><strong>DoD:</strong> List/Grid view, filter by category, sort by price. Loads acceptably on minimum hardware spec.</p>
+                    </li>
+                    <li>
+                        <div class="requirement-title">
+                            <span class="badge">FR-02</span> Product Details Page
+                        </div>
+                        <p><strong>DoD:</strong> Displays key attributes, images, stock status, functional "Add to Cart".</p>
+                    </li>
+                    <li>
+                        <div class="requirement-title">
+                            <span class="badge">FR-03</span> Shopping Cart Management
+                        </div>
+                        <p><strong>DoD:</strong> CRUD operations in cart, persisted for logged-in users, real-time subtotal.</p>
+                    </li>
+                    <li>
+                        <div class="requirement-title">
+                            <span class="badge">FR-04</span> Secure Checkout Process
+                        </div>
+                        <p><strong>DoD:</strong> 5-step flow with JWT session management. Inventory updates on success.</p>
+                    </li>
+                </ul>
+
+                <h3 style="color: var(--primary-dark); margin: 2rem 0 1rem 0; padding-left: 10px; border-left: 4px solid var(--success);">
+                    <i class="fas fa-user-shield"></i> User Account & Security
+                </h3>
+                
+                <ul class="requirements-list">
+                    <li>
+                        <div class="requirement-title">
+                            <span class="badge">FR-05</span> Secure User Registration & Login
+                        </div>
+                        <p><strong>DoD:</strong> Secure password handling, JWT issuance and validation, session management.</p>
+                    </li>
+                    <li>
+                        <div class="requirement-title">
+                            <span class="badge">FR-06</span> User Profile Management
+                        </div>
+                        <p><strong>DoD:</strong> Users can manage name, email, and shipping addresses. Type safety enforced.</p>
+                    </li>
+                </ul>
+
+                <h3 style="color: var(--primary-dark); margin: 2rem 0 1rem 0; padding-left: 10px; border-left: 4px solid var(--primary);">
+                    <i class="fas fa-cogs"></i> Administration Panel (Backend)
+                </h3>
+                
+                <ul class="requirements-list">
+                    <li>
+                        <div class="requirement-title">
+                            <span class="badge">FR-08</span> Secure Admin Access Control
+                        </div>
+                        <p><strong>DoD:</strong> Admin route protection via role-based middleware.</p>
+                    </li>
+                    <li>
+                        <div class="requirement-title">
+                            <span class="badge">FR-09</span> Product Management (CRUD)
+                        </div>
+                        <p><strong>DoD:</strong> Full product lifecycle management with image upload.</p>
+                    </li>
+                    <li>
+                        <div class="requirement-title">
+                            <span class="badge">FR-11</span> Order Management & Fulfillment
+                        </div>
+                        <p><strong>DoD:</strong> View all orders, update status (reflected in customer view).</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Project Management Tab -->
+        <div class="tab-content" id="project">
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-project-diagram"></i> Project Management Framework</h2>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3><i class="fas fa-methodology"></i> Methodology</h3>
+                        <p><strong>Agile Scrum</strong> adapted for a micro-team with extreme time constraints.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-clock"></i> Sprint Structure</h3>
+                        <p><strong>Four 10-hour "Micro-Sprints"</strong><br>Total: (2.5h × 4 days) × 4 weeks = 40 hours</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-calendar-day"></i> Daily Allocation</h3>
+                        <p><strong>2.5 hours per day</strong> focused work<br>+ Possible 1 extra hour for critical issues only</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--primary-dark); margin: 2rem 0 1rem 0;">Core Ceremonies</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ceremony</th>
+                                <th>Duration</th>
+                                <th>Purpose</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Sprint Planning</strong></td>
+                                <td>15 min</td>
+                                <td>Prioritize backlog for next 10-hour block</td>
+                                <td>Per micro-sprint</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Daily Stand-up</strong></td>
+                                <td>5-10 min</td>
+                                <td>Progress sync, blockers, daily focus</td>
+                                <td>Daily</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sprint Review</strong></td>
+                                <td>15 min</td>
+                                <td>Demonstrate completed work to Product Owner</td>
+                                <td>Per micro-sprint</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sprint Retrospective</strong></td>
+                                <td>10 min</td>
+                                <td>Identify one improvement for next sprint</td>
+                                <td>Per micro-sprint</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="color: var(--primary-dark); margin: 2rem 0 1rem 0;">Prioritization & Phasing</h3>
+                <div class="card-grid">
+                    <div class="card" style="border-left: 5px solid var(--danger);">
+                        <h3><i class="fas fa-exclamation-circle"></i> Priority 1 (Sprints 1-2)</h3>
+                        <p><strong>Core Transaction & Security</strong><br>Database setup, API with JWT auth, React frontend structure</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                            <i class="fas fa-code"></i> FR-01, FR-02, FR-05, FR-08, FR-09
+                        </p>
+                    </div>
+                    <div class="card" style="border-left: 5px solid var(--warning);">
+                        <h3><i class="fas fa-shopping-cart"></i> Priority 2 (Sprint 3)</h3>
+                        <p><strong>Purchase Flow</strong><br>Shopping cart, checkout process, order creation</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                            <i class="fas fa-code"></i> FR-03, FR-04, FR-11
+                        </p>
+                    </div>
+                    <div class="card" style="border-left: 5px solid var(--success);">
+                        <h3><i class="fas fa-user-cog"></i> Priority 3 (Sprint 4)</h3>
+                        <p><strong>Polish & User Management</strong><br>User profiles, order history, category management</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                            <i class="fas fa-code"></i> FR-06, FR-07, FR-10, FR-12
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="background: #fff8e1; padding: 1rem; border-radius: var(--radius); margin-top: 1.5rem; border-left: 4px solid var(--warning);">
+                    <p><strong><i class="fas fa-exclamation-triangle"></i> Critical Rule:</strong> Features will be descoped immediately if time runs out, focusing on a working "sell-and-manage" core.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Constraints Tab -->
+        <div class="tab-content" id="constraints">
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-exclamation-triangle"></i> Constraints & Limitations</h2>
+                
+                <div class="constraints-box">
+                    <h4><i class="fas fa-clock"></i> Time Constraints</h4>
+                    <p><strong>Total Development Time:</strong> 40 core hours (four 10-hour micro-sprints)</p>
+                    <p><strong>Daily Work:</strong> 2.5 hours × 4 days per week</p>
+                    <p><strong>Contingency:</strong> Possible 1 extra hour per day for critical issues only</p>
+                </div>
+
+                <div class="constraints-box">
+                    <h4><i class="fas fa-money-bill-wave"></i> Budget Constraints</h4>
+                    <p><strong>Monetary Budget:</strong> $0 (Zero budget)</p>
+                    <p><strong>Implication:</strong> Must use free-tier services only for hosting, databases, and payment processing sandbox</p>
+                </div>
+
+                <div class="constraints-box">
+                    <h4><i class="fas fa-desktop"></i> Hardware Constraints</h4>
+                    <p><strong>Optimal Spec:</strong> 32GB RAM, i7 Ultra 255H, 1TB SSD</p>
+                    <p><strong>Minimum Required:</strong> 16GB RAM, i5 CPU, 256GB SSD</p>
+                    <p><strong>GPU:</strong> 128MB (Standard display requirements)</p>
+                    <p><em>Application must be designed to run functionally on minimum hardware</em></p>
+                </div>
+
+                <div class="constraints-box">
+                    <h4><i class="fas fa-user-graduate"></i> Team Skills Constraints</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div style="background: white; padding: 1rem; border-radius: var(--radius);">
+                            <strong>React:</strong> 70% proficiency
+                        </div>
+                        <div style="background: white; padding: 1rem; border-radius: var(--radius);">
+                            <strong>Node.js:</strong> 75% proficiency
+                        </div>
+                        <div style="background: white; padding: 1rem; border-radius: var(--radius);">
+                            <strong>MongoDB:</strong> 75% proficiency
+                        </div>
+                        <div style="background: white; padding: 1rem; border-radius: var(--radius);">
+                            <strong>SQL:</strong> 35% proficiency
+                        </div>
+                    </div>
+                    <p style="margin-top: 1rem;"><strong>Implication:</strong> Prioritize tasks using high-proficiency skills (>50%) to maximize efficiency</p>
+                </div>
+
+                <h3 style="color: var(--primary-dark); margin: 2rem 0 1rem 0;">Security Requirements</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3><i class="fas fa-key"></i> Authentication</h3>
+                        <p>JWT-based authentication with clear role separation</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-shield-alt"></i> Data Security</h3>
+                        <p>Environment secrets secured, password hashing, input sanitization</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-code"></i> Code Practice</h3>
+                        <p>Adherence to OOP principles and type safety to reduce vulnerabilities</p>
+                    </div>
+                </div>
+
+                <div style="background: #e3f2fd; padding: 1.5rem; border-radius: var(--radius); margin-top: 1.5rem;">
+                    <h4><i class="fas fa-lightbulb"></i> Key Technology Decisions (Based on Constraints)</h4>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><strong>Primary Stack:</strong> React/Node.js/MongoDB (highest team proficiency)</li>
+                        <li><strong>Avoid:</strong> Technologies with <50% team skill unless absolutely necessary</li>
+                        <li><strong>Security:</strong> Focus on JWT, input validation, role permissions (advanced infra like VPN/Vault out of scope)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sign-off Tab -->
+        <div class="tab-content" id="signoff">
+            <div class="sign-off-section">
+                <h2 class="section-title"><i class="fas fa-file-signature"></i> Document Approval</h2>
+                <p>This document approves the functional scope, project management approach, and strict prioritization for the Fashion Boutique Online Store MVP, acknowledging the severe time and budget constraints.</p>
+                
+                <div class="signature-grid">
+                    <div class="signature-box">
+                        <h3>Project Sponsor</h3>
+                        <p style="color: var(--text-light); margin: 0.5rem 0;">Boutique Owner</p>
+                        <div class="signature-line"></div>
+                        <p><strong>Name:</strong> _________________________</p>
+                        <p><strong>Signature:</strong> ______________________</p>
+                        <p><strong>Date:</strong> __________________________</p>
+                    </div>
+                    
+                    <div class="signature-box">
+                        <h3>Project Lead / Product Owner</h3>
+                        <p style="color: var(--text-light); margin: 0.5rem 0;">Business Analyst</p>
+                        <div class="signature-line"></div>
+                        <p><strong>Name:</strong> _________________________</p>
+                        <p><strong>Signature:</strong> ______________________</p>
+                        <p><strong>Date:</strong> __________________________</p>
+                    </div>
+                    
+                    <div class="signature-box">
+                        <h3>Technical Lead</h3>
+                        <p style="color: var(--text-light); margin: 0.5rem 0;">Development Team Lead</p>
+                        <div class="signature-line"></div>
+                        <p><strong>Name:</strong> _________________________</p>
+                        <p><strong>Signature:</strong> ______________________</p>
+                        <p><strong>Date:</strong> __________________________</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem; padding: 1rem; background: white; border-radius: var(--radius);">
+                    <p><i class="fas fa-file-pdf"></i> <strong>Document Version:</strong> 1.2</p>
+                    <p><strong>Effective Date:</strong> Upon final signature</p>
+                    <p><strong>Next Review:</strong> Project completion or scope change</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 2rem; color: var(--text-light); font-size: 0.9rem; margin-top: 2rem;">
+            <p>Fashion Boutique Online Store FRD | Confidential Business Document</p>
+            <p>Generated on: October 26, 2023 | Based on initial project constraints analysis</p>
+            <div style="margin-top: 1rem;">
+                <button id="printBtn" style="background: var(--primary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: var(--radius); cursor: pointer; margin: 0 0.5rem;">
+                    <i class="fas fa-print"></i> Print Document
+                </button>
+                <button id="exportBtn" style="background: var(--success); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: var(--radius); cursor: pointer; margin: 0 0.5rem;">
+                    <i class="fas fa-file-export"></i> Export as PDF
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetId = tab.getAttribute('data-target');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and target content
+                    tab.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+            
+            // Print functionality
+            document.getElementById('printBtn').addEventListener('click', () => {
+                window.print();
+            });
+            
+            // Export as PDF simulation
+            document.getElementById('exportBtn').addEventListener('click', () => {
+                alert('PDF export would be generated in a real application. For now, use browser print to PDF.');
+            });
+            
+            // Add some interactive elements
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+            
+            // Auto-highlight current section in view
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.boxShadow = '0 8px 30px rgba(138, 43, 226, 0.2)';
+                    } else {
+                        entry.target.style.boxShadow = 'var(--shadow)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Add notification for constraints
+            const constraintBoxes = document.querySelectorAll('.constraints-box');
+            constraintBoxes.forEach(box => {
+                box.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(5px)';
+                });
+                box.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
