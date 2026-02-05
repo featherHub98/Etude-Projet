@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Boutique - Technical Requirements Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --tech-blue: #2c3e50;
+            --tech-blue-dark: #1a252f;
+            --tech-green: #27ae60;
+            --tech-orange: #e67e22;
+            --tech-red: #e74c3c;
+            --tech-purple: #8e44ad;
+            --tech-light: #ecf0f1;
+            --tech-gray: #7f8c8d;
+            --tech-border: #bdc3c7;
+            --tech-shadow: 0 4px 12px rgba(44, 62, 80, 0.1);
+            --tech-radius: 10px;
+            --tech-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+            color: var(--tech-blue);
+            line-height: 1.7;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .document-header {
+            background: linear-gradient(135deg, var(--tech-blue), var(--tech-blue-dark));
+            color: white;
+            padding: 3rem;
+            border-radius: var(--tech-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--tech-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .document-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(231, 126, 34, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.1) 0%, transparent 50%);
+        }
+
+        .document-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .document-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 1.5rem;
+            position: relative;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--tech-transition);
+        }
+
+        .tech-badge:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .badge-primary {
+            background: linear-gradient(135deg, var(--tech-green), #2ecc71) !important;
+        }
+
+        .badge-secondary {
+            background: linear-gradient(135deg, var(--tech-orange), #f39c12) !important;
+        }
+
+        /* Tabs */
+        .tech-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            background: white;
+            padding: 1rem;
+            border-radius: var(--tech-radius);
+            box-shadow: var(--tech-shadow);
+        }
+
+        .tech-tab {
+            padding: 1rem 2rem;
+            background: var(--tech-light);
+            border: none;
+            border-radius: var(--tech-radius);
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--tech-gray);
+            transition: var(--tech-transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 180px;
+            justify-content: center;
+        }
+
+        .tech-tab.active {
+            background: linear-gradient(135deg, var(--tech-blue), var(--tech-blue-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+        }
+
+        /* Content Sections */
+        .tech-section {
+            background: white;
+            border-radius: var(--tech-radius);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--tech-shadow);
+            transition: var(--tech-transition);
+            border-left: 5px solid var(--tech-blue);
+        }
+
+        .tech-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.15);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.8rem;
+            color: var(--tech-blue-dark);
+            font-size: 1.8rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--tech-border);
+        }
+
+        .section-title i {
+            color: white;
+            background: var(--tech-blue);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
+        }
+
+        /* Architecture Diagram */
+        .architecture-container {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: var(--tech-radius);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .architecture-layer {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .layer-arrow {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--tech-green);
+            font-size: 2rem;
+            z-index: 1;
+        }
+
+        .layer-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--tech-radius);
+            box-shadow: var(--tech-shadow);
+            text-align: center;
+            width: 220px;
+            transition: var(--tech-transition);
+            border: 2px solid transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .layer-box:hover {
+            transform: scale(1.05);
+            border-color: var(--tech-blue);
+        }
+
+        .layer-box.frontend {
+            border-top: 5px solid var(--tech-green);
+        }
+
+        .layer-box.backend {
+            border-top: 5px solid var(--tech-orange);
+        }
+
+        .layer-box.database {
+            border-top: 5px solid var(--tech-purple);
+        }
+
+        /* Tech Stack Cards */
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stack-card {
+            background: var(--tech-light);
+            border-radius: var(--tech-radius);
+            padding: 2rem;
+            transition: var(--tech-transition);
+            border: 2px solid transparent;
+        }
+
+        .stack-card:hover {
+            border-color: var(--tech-blue);
+            background: white;
+            transform: translateY(-5px);
+        }
+
+        .stack-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+            color: var(--tech-blue-dark);
+        }
+
+        .skill-meter {
+            height: 10px;
+            background: #dfe6e9;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--tech-green), #2ecc71);
+            position: relative;
+        }
+
+        .skill-fill::after {
+            content: attr(data-skill);
+            position: absolute;
+            right: 10px;
+            top: -25px;
+            font-weight: bold;
+            color: var(--tech-blue);
+        }
+
+        /* Tables */
+        .tech-table-container {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: var(--tech-radius);
+            border: 1px solid var(--tech-border);
+            box-shadow: var(--tech-shadow);
+        }
+
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .tech-table th {
+            background: linear-gradient(135deg, var(--tech-blue), var(--tech-blue-dark));
+            color: white;
+            text-align: left;
+            padding: 1.2rem;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .tech-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--tech-border);
+            vertical-align: top;
+        }
+
+        .tech-table tr:nth-child(even) {
+            background-color: rgba(44, 62, 80, 0.03);
+        }
+
+        .tech-table tr:hover {
+            background-color: rgba(44, 62, 80, 0.08);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #2d3436;
+            color: #dfe6e9;
+            padding: 1.5rem;
+            border-radius: var(--tech-radius);
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            border-left: 5px solid var(--tech-green);
+        }
+
+        .code-comment {
+            color: #636e72;
+        }
+
+        .code-keyword {
+            color: #74b9ff;
+        }
+
+        .code-string {
+            color: #55efc4;
+        }
+
+        /* Security Section */
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .security-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--tech-radius);
+            border-left: 4px solid var(--tech-green);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .security-item.critical {
+            border-left-color: var(--tech-red);
+        }
+
+        /* Hardware Requirements */
+        .hardware-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .hardware-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: var(--tech-radius);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hardware-card.minimum {
+            border: 2px solid var(--tech-orange);
+        }
+
+        .hardware-card.recommended {
+            border: 2px solid var(--tech-green);
+        }
+
+        .hardware-card h4 {
+            margin-bottom: 1rem;
+            color: var(--tech-blue-dark);
+        }
+
+        .hardware-spec {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--tech-border);
+        }
+
+        /* Development Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--tech-blue);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--tech-radius);
+            box-shadow: var(--tech-shadow);
+            width: 45%;
+            border-top: 4px solid;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            border-top-color: var(--tech-green);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            border-top-color: var(--tech-orange);
+        }
+
+        .timeline-marker {
+            width: 40px;
+            height: 40px;
+            background: var(--tech-blue);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--tech-blue);
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                flex-direction: row !important;
+                margin-left: 60px;
+            }
+            
+            .timeline-content {
+                width: 100%;
+            }
+            
+            .timeline-marker {
+                left: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .document-header {
+                padding: 2rem;
+            }
+            
+            .document-header h1 {
+                font-size: 2rem;
+            }
+            
+            .tech-tabs {
+                flex-direction: column;
+            }
+            
+            .tech-tab {
+                min-width: 100%;
+            }
+            
+            .tech-section {
+                padding: 1.5rem;
+            }
+            
+            .architecture-layer {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .layer-box {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .tech-tabs {
+                display: none;
+            }
+            
+            .tech-tab-content {
+                display: block !important;
+                page-break-inside: avoid;
+            }
+            
+            .tech-section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Document Header -->
+        <header class="document-header">
+            <h1><i class="fas fa-microchip"></i> Fashion Boutique Online Store</h1>
+            <div class="subtitle">Technical Requirements Document (TRD) - Version 1.0</div>
+            
+            <div class="tech-badges">
+                <div class="tech-badge badge-primary">
+                    <i class="fab fa-react"></i> React 18 (TypeScript)
+                </div>
+                <div class="tech-badge badge-secondary">
+                    <i class="fab fa-node-js"></i> Node.js 18 + Express
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-database"></i> MongoDB Atlas
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-shield-alt"></i> JWT Authentication
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-bolt"></i> 40-Hour MVP Timeline
+                </div>
+            </div>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <nav class="tech-tabs">
+            <button class="tech-tab active" data-target="architecture">
+                <i class="fas fa-sitemap"></i> Architecture
+            </button>
+            <button class="tech-tab" data-target="stack">
+                <i class="fas fa-layer-group"></i> Tech Stack
+            </button>
+            <button class="tech-tab" data-target="api">
+                <i class="fas fa-code"></i> API Specifications
+            </button>
+            <button class="tech-tab" data-target="database">
+                <i class="fas fa-database"></i> Database Design
+            </button>
+            <button class="tech-tab" data-target="security">
+                <i class="fas fa-shield-alt"></i> Security
+            </button>
+            <button class="tech-tab" data-target="deployment">
+                <i class="fas fa-rocket"></i> Deployment
+            </button>
+        </nav>
+
+        <!-- Architecture Tab -->
+        <div class="tech-tab-content active" id="architecture">
+            <div class="tech-section">
+                <h2 class="section-title"><i class="fas fa-sitemap"></i> System Architecture</h2>
+                
+                <div class="architecture-container">
+                    <div class="architecture-layer">
+                        <div class="layer-box frontend">
+                            <h3><i class="fab fa-react"></i> Frontend Layer</h3>
+                            <p>React 18 + TypeScript</p>
+                            <p>React Router v6</p>
+                            <p>Axios for HTTP</p>
+                            <p>Tailwind CSS</p>
+                        </div>
+                    </div>
+                    
+                    <div class="layer-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <div class="architecture-layer">
+                        <div class="layer-box backend">
+                            <h3><i class="fab fa-node-js"></i> Backend Layer</h3>
+                            <p>Node.js + Express</p>
+                            <p>TypeScript</p>
+                            <p>JWT Authentication</p>
+                            <p>API Rate Limiting</p>
+                        </div>
+                    </div>
+                    
+                    <div class="layer-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <div class="architecture-layer">
+                        <div class="layer-box database">
+                            <h3><i class="fas fa-database"></i> Data Layer</h3>
+                            <p>MongoDB Atlas</p>
+                            <p>Mongoose ODM</p>
+                            <p>Redis (Optional Cache)</p>
+                            <p>Environment Variables</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--tech-blue-dark); margin: 2rem 0 1rem 0;">Key Technical Decisions</h3>
+                <div class="tech-table-container">
+                    <table class="tech-table">
+                        <thead>
+                            <tr>
+                                <th>Decision</th>
+                                <th>Reason</th>
+                                <th>Alternative Considered</th>
+                                <th>Team Skill Match</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>React (TypeScript)</strong></td>
+                                <td>Highest team proficiency (70%), strong ecosystem, type safety</td>
+                                <td>Vue.js (35%), Angular (15%)</td>
+                                <td><span style="color: var(--tech-green); font-weight: bold;">70%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Node.js + Express</strong></td>
+                                <td>75% team skill, JavaScript full-stack consistency, fast prototyping</td>
+                                <td>Python/Django (75%), Java Spring (5%)</td>
+                                <td><span style="color: var(--tech-green); font-weight: bold;">75%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>MongoDB</strong></td>
+                                <td>75% team skill, flexible schema, good for MVP iteration</td>
+                                <td>PostgreSQL (35%), MySQL (30%)</td>
+                                <td><span style="color: var(--tech-green); font-weight: bold;">75%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>TypeScript</strong></td>
+                                <td>Type safety reduces bugs, better IDE support, team familiarity</td>
+                                <td>Plain JavaScript</td>
+                                <td><span style="color: var(--tech-green); font-weight: bold;">65%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack Tab -->
+        <div class="tech-tab-content" id="stack">
+            <div class="tech-section">
+                <h2 class="section-title"><i class="fas fa-layer-group"></i> Technology Stack</h2>
+                
+                <div class="tech-stack-grid">
+                    <div class="stack-card">
+                        <h3><i class="fab fa-react"></i> Frontend</h3>
+                        <div class="skill-meter">
+                            <div class="skill-fill" style="width: 70%;" data-skill="70%"></div>
+                        </div>
+                        <ul style="list-style-type: none; padding-left: 0;">
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> React 18 with TypeScript</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> React Router v6</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> Axios for API calls</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> Tailwind CSS for styling</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> React Hook Form</li>
+                            <li><i class="fas fa-times-circle" style="color: var(--tech-red);"></i> <del>Redux (too heavy for MVP)</del></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="stack-card">
+                        <h3><i class="fab fa-node-js"></i> Backend</h3>
+                        <div class="skill-meter">
+                            <div class="skill-fill" style="width: 75%;" data-skill="75%"></div>
+                        </div>
+                        <ul style="list-style-type: none; padding-left: 0;">
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> Node.js 18 LTS</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> Express.js framework</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> TypeScript compilation</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> JWT for authentication</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> Bcrypt for password hashing</li>
+                            <li><i class="fas fa-times-circle" style="color: var(--tech-red);"></i> <del>GraphQL (REST sufficient)</del></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="stack-card">
+                        <h3><i class="fas fa-database"></i> Database</h3>
+                        <div class="skill-meter">
+                            <div class="skill-fill" style="width: 75%;" data-skill="75%"></div>
+                        </div>
+                        <ul style="list-style-type: none; padding-left: 0;">
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> MongoDB Atlas (free tier)</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-green);"></i> Mongoose ODM</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--tech-orange);"></i> Redis (optional cache)</li>
+                            <li><i class="fas fa-times-circle" style="color: var(--tech-red);"></i> <del>SQL Database (35% skill)</del></li>
+                            <li><i class="fas fa-times-circle" style="color: var(--tech-red);"></i> <del>Advanced indexing (time)</del></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--tech-blue-dark); margin: 3rem 0 1rem 0;">Hardware Requirements</h3>
+                <div class="hardware-grid">
+                    <div class="hardware-card minimum">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Minimum Requirements</h4>
+                        <div class="hardware-spec">
+                            <span>RAM:</span>
+                            <strong>16 GB</strong>
+                        </div>
+                        <div class="hardware-spec">
+                            <span>CPU:</span>
+                            <strong>Intel i5 / AMD Ryzen 5</strong>
+                        </div>
+                        <div class="hardware-spec">
+                            <span>Storage:</span>
+                            <strong>256 GB SSD</strong>
+                        </div>
+                        <div class="hardware-spec">
+                            <span>GPU:</span>
+                            <strong>128 MB (integrated)</strong>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--tech-orange);">
+                            <i class="fas fa-info-circle"></i> System must function on this spec
+                        </p>
+                    </div>
+                    
+                    <div class="hardware-card recommended">
+                        <h4><i class="fas fa-star"></i> Recommended Spec</h4>
+                        <div class="hardware-spec">
+                            <span>RAM:</span>
+                            <strong>32 GB</strong>
+                        </div>
+                        <div class="hardware-spec">
+                            <span>CPU:</span>
+                            <strong>Intel i7 Ultra 255H</strong>
+                        </div>
+                        <div class="hardware-spec">
+                            <span>Storage:</span>
+                            <strong>1 TB SSD</strong>
+                        </div>
+                        <div class="hardware-spec">
+                            <span>GPU:</span>
+                            <strong>Dedicated 2GB+</strong>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--tech-green);">
+                            <i class="fas fa-bolt"></i> Optimal development & testing
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Specifications Tab -->
+        <div class="tech-tab-content" id="api">
+            <div class="tech-section">
+                <h2 class="section-title"><i class="fas fa-code"></i> API Specifications</h2>
+                
+                <h3 style="color: var(--tech-blue-dark); margin: 2rem 0 1rem 0;">REST API Endpoints</h3>
+                
+                <div class="tech-table-container">
+                    <table class="tech-table">
+                        <thead>
+                            <tr>
+                                <th>Endpoint</th>
+                                <th>Method</th>
+                                <th>Description</th>
+                                <th>Auth Required</th>
+                                <th>Response</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>/api/auth/register</code></td>
+                                <td><span style="background: var(--tech-green); color: white; padding: 0.2rem 0.5rem; border-radius: 4px;">POST</span></td>
+                                <td>Register new user</td>
+                                <td>No</td>
+                                <td>JWT Token + User</td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/auth/login</code></td>
+                                <td><span style="background: var(--tech-green); color: white; padding: 0.2rem 0.5rem; border-radius: 4px;">POST</span></td>
+                                <td>Authenticate user</td>
+                                <td>No</td>
+                                <td>JWT Token</td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/products</code></td>
+                                <td><span style="background: #3498db; color: white; padding: 0.2rem 0.5rem; border-radius: 4px;">GET</span></td>
+                                <td>Get all products (paginated)</td>
+                                <td>No</td>
+                                <td>Product[]</td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/products/:id</code></td>
+                                <td><span style="background: #3498db; color: white; padding: 0.2rem 0.5rem; border-radius: 4px;">GET</span></td>
+                                <td>Get single product</td>
+                                <td>No</td>
+                                <td>Product</td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/admin/products</code></td>
+                                <td><span style="background: var(--tech-green); color: white; padding: 0.2rem 0.5rem; border-radius: 4px;">POST</span></td>
+                                <td>Create new product</td>
+                                <td>Admin</td>
+                                <td>Product</td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/orders</code></td>
+                                <td><span style="background: var(--tech-green); color: white; padding: 0.2rem 0.5rem; border-radius: 4px;">POST</span></td>
+                                <td>Create new order</td>
+                                <td>User</td>
+                                <td>Order</td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/users/me/orders</code></td>
+                                <td><span style="background: #3498db; color: white; padding: 0.2rem 0.5rem; border-radius: 4px;">GET</span></td>
+                                <td>Get user's orders</td>
+                                <td>User</td>
+                                <td>Order[]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="color: var(--tech-blue-dark); margin: 3rem 0 1rem 0;">JWT Authentication Flow</h3>
+                <div class="code-block">
+                    <span class="code-comment">// Authentication middleware</span><br>
+                    <span class="code-keyword">const</span> <span>authenticateJWT = (</span>req<span>, </span>res<span>, </span>next<span>) => {</span><br>
+                    &nbsp;&nbsp;<span class="code-keyword">const</span> authHeader = req.<span>headers</span>.<span>authorization</span>;<br>
+                    &nbsp;&nbsp;<span class="code-keyword">if</span> (authHeader) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">const</span> token = authHeader.<span>split</span>(<span class="code-string">' '</span>)[<span>1</span>];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;jwt.<span>verify</span>(token, process.<span>env</span>.<span>JWT_SECRET</span>, (err, user) => {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> (err) <span class="code-keyword">return</span> res.<span>sendStatus</span>(<span>403</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;req.<span>user</span> = user;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;next();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;});<br>
+                    &nbsp;&nbsp;} <span class="code-keyword">else</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;res.<span>sendStatus</span>(<span>401</span>);<br>
+                    &nbsp;&nbsp;}<br>
+                    <span>};</span>
+                </div>
+
+                <h3 style="color: var(--tech-blue-dark); margin: 2rem 0 1rem 0;">Rate Limiting Configuration</h3>
+                <div class="code-block">
+                    <span class="code-comment">// Rate limiting: 100 requests per 15 minutes for API</span><br>
+                    <span class="code-keyword">const</span> limiter = rateLimit({<br>
+                    &nbsp;&nbsp;windowMs: <span>15</span> * <span>60</span> * <span>1000</span>, <span class="code-comment">// 15 minutes</span><br>
+                    &nbsp;&nbsp;max: <span>100</span>, <span class="code-comment">// limit each IP</span><br>
+                    &nbsp;&nbsp;message: <span class="code-string">'Too many requests from this IP'</span><br>
+                    <span>});</span><br>
+                    <br>
+                    <span class="code-comment">// Stricter limit for auth endpoints</span><br>
+                    <span class="code-keyword">const</span> authLimiter = rateLimit({<br>
+                    &nbsp;&nbsp;windowMs: <span>60</span> * <span>60</span> * <span>1000</span>, <span class="code-comment">// 1 hour</span><br>
+                    &nbsp;&nbsp;max: <span>5</span>, <span class="code-comment">// 5 attempts per hour</span><br>
+                    &nbsp;&nbsp;message: <span class="code-string">'Too many login attempts'</span><br>
+                    <span>});</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database Design Tab -->
+        <div class="tech-tab-content" id="database">
+            <div class="tech-section">
+                <h2 class="section-title"><i class="fas fa-database"></i> Database Design</h2>
+                
+                <h3 style="color: var(--tech-blue-dark); margin: 2rem 0 1rem 0;">MongoDB Schema Design</h3>
+                
+                <div class="code-block">
+                    <span class="code-comment">// User Schema</span><br>
+                    <span class="code-keyword">const</span> UserSchema = <span>new</span> mongoose.<span>Schema</span>({<br>
+                    &nbsp;&nbsp;email: { type: <span>String</span>, required: <span>true</span>, unique: <span>true</span> },<br>
+                    &nbsp;&nbsp;password: { type: <span>String</span>, required: <span>true</span> },<br>
+                    &nbsp;&nbsp;name: { type: <span>String</span>, required: <span>true</span> },<br>
+                    &nbsp;&nbsp;role: { type: <span>String</span>, enum: [<span class="code-string">'user'</span>, <span class="code-string">'admin'</span>], default: <span class="code-string">'user'</span> },<br>
+                    &nbsp;&nbsp;addresses: [{<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;street: <span>String</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;city: <span>String</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;zipCode: <span>String</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;country: <span>String</span><br>
+                    &nbsp;&nbsp;}],<br>
+                    &nbsp;&nbsp;createdAt: { type: <span>Date</span>, default: <span>Date</span>.<span>now</span> }<br>
+                    <span>});</span>
+                </div>
+
+                <div class="code-block">
+                    <span class="code-comment">// Product Schema</span><br>
+                    <span class="code-keyword">const</span> ProductSchema = <span>new</span> mongoose.<span>Schema</span>({<br>
+                    &nbsp;&nbsp;name: { type: <span>String</span>, required: <span>true</span> },<br>
+                    &nbsp;&nbsp;description: <span>String</span>,<br>
+                    &nbsp;&nbsp;price: { type: <span>Number</span>, required: <span>true</span>, min: <span>0</span> },<br>
+                    &nbsp;&nbsp;images: [<span>String</span>], <span class="code-comment">// Array of image URLs</span><br>
+                    &nbsp;&nbsp;category: { type: <span>String</span>, required: <span>true</span> },<br>
+                    &nbsp;&nbsp;stock: { type: <span>Number</span>, required: <span>true</span>, min: <span>0</span>, default: <span>0</span> },<br>
+                    &nbsp;&nbsp;variants: [{<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;size: <span>String</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;color: <span>String</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;sku: <span>String</span><br>
+                    &nbsp;&nbsp;}],<br>
+                    &nbsp;&nbsp;isActive: { type: <span>Boolean</span>, default: <span>true</span> }<br>
+                    <span>});</span>
+                </div>
+
+                <div class="code-block">
+                    <span class="code-comment">// Order Schema</span><br>
+                    <span class="code-keyword">const</span> OrderSchema = <span>new</span> mongoose.<span>Schema</span>({<br>
+                    &nbsp;&nbsp;user: { type: mongoose.<span>Schema</span>.<span>Types</span>.<span>ObjectId</span>, ref: <span class="code-string">'User'</span> },<br>
+                    &nbsp;&nbsp;items: [{<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;product: { type: mongoose.<span>Schema</span>.<span>Types</span>.<span>ObjectId</span>, ref: <span class="code-string">'Product'</span> },<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;quantity: { type: <span>Number</span>, min: <span>1</span> },<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;priceAtPurchase: <span>Number</span><br>
+                    &nbsp;&nbsp;}],<br>
+                    &nbsp;&nbsp;totalAmount: { type: <span>Number</span>, required: <span>true</span> },<br>
+                    &nbsp;&nbsp;shippingAddress: {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;street: <span>String</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;city: <span>String</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;zipCode: <span>String</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;country: <span>String</span><br>
+                    &nbsp;&nbsp;},<br>
+                    &nbsp;&nbsp;status: { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;type: <span>String</span>, <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;enum: [<span class="code-string">'pending'</span>, <span class="code-string">'processing'</span>, <span class="code-string">'shipped'</span>, <span class="code-string">'delivered'</span>, <span class="code-string">'cancelled'</span>],<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;default: <span class="code-string">'pending'</span><br>
+                    &nbsp;&nbsp;},<br>
+                    &nbsp;&nbsp;createdAt: { type: <span>Date</span>, default: <span>Date</span>.<span>now</span> }<br>
+                    <span>});</span>
+                </div>
+
+                <h3 style="color: var(--tech-blue-dark); margin: 3rem 0 1rem 0;">Indexing Strategy</h3>
+                <div class="tech-table-container">
+                    <table class="tech-table">
+                        <thead>
+                            <tr>
+                                <th>Collection</th>
+                                <th>Index Field</th>
+                                <th>Type</th>
+                                <th>Purpose</th>
+                                <th>Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Users</td>
+                                <td>email</td>
+                                <td>Unique</td>
+                                <td>Fast login lookups</td>
+                                <td><span style="color: var(--tech-green); font-weight: bold;">HIGH</span></td>
+                            </tr>
+                            <tr>
+                                <td>Products</td>
+                                <td>category, price</td>
+                                <td>Compound</td>
+                                <td>Product filtering</td>
+                                <td><span style="color: var(--tech-green); font-weight: bold;">HIGH</span></td>
+                            </tr>
+                            <tr>
+                                <td>Products</td>
+                                <td>createdAt</td>
+                                <td>Descending</td>
+                                <td>Newest products first</td>
+                                <td><span style="color: var(--tech-orange);">MEDIUM</span></td>
+                            </tr>
+                            <tr>
+                                <td>Orders</td>
+                                <td>user, createdAt</td>
+                                <td>Compound</td>
+                                <td>User order history</td>
+                                <td><span style="color: var(--tech-green); font-weight: bold;">HIGH</span></td>
+                            </tr>
+                            <tr>
+                                <td>Orders</td>
+                                <td>status</td>
+                                <td>Single</td>
+                                <td>Admin order filtering</td>
+                                <td><span style="color: var(--tech-orange);">MEDIUM</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Tab -->
+        <div class="tech-tab-content" id="security">
+            <div class="tech-section">
+                <h2 class="section-title"><i class="fas fa-shield-alt"></i> Security Implementation</h2>
+                
+                <div class="security-grid">
+                    <div class="security-item">
+                        <h4><i class="fas fa-user-lock"></i> Authentication</h4>
+                        <p>JWT-based with 24-hour expiration</p>
+                        <p>Refresh token mechanism</p>
+                        <p>Password hashing with bcrypt (12 rounds)</p>
+                    </div>
+                    
+                    <div class="security-item critical">
+                        <h4><i class="fas fa-user-tag"></i> Authorization</h4>
+                        <p>Role-based access control (User/Admin)</p>
+                        <p>Middleware protection for admin routes</p>
+                        <p>User data isolation</p>
+                    </div>
+                    
+                    <div class="security-item">
+                        <h4><i class="fas fa-shield-virus"></i> Input Validation</h4>
+                        <p>Joi schema validation</p>
+                        <p>XSS protection headers</p>
+                        <p>SQL/NoSQL injection prevention</p>
+                    </div>
+                    
+                    <div class="security-item">
+                        <h4><i class="fas fa-lock"></i> Data Protection</h4>
+                        <p>Environment variables for secrets</p>
+                        <p>HTTPS enforcement</p>
+                        <p>Password minimum 8 chars</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--tech-blue-dark); margin: 3rem 0 1rem 0;">Security Headers Configuration</h3>
+                <div class="code-block">
+                    <span class="code-comment">// Essential security headers</span><br>
+                    app.<span>use</span>(helmet({<br>
+                    &nbsp;&nbsp;contentSecurityPolicy: {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;directives: {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaultSrc: [<span class="code-string">"'self'"</span>],<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scriptSrc: [<span class="code-string">"'self'"</span>],<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;styleSrc: [<span class="code-string">"'self'"</span>, <span class="code-string">"'unsafe-inline'"</span>],<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imgSrc: [<span class="code-string">"'self'"</span>, <span class="code-string">"data:"</span>, <span class="code-string">"https:"</span>]<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;}<br>
+                    <span>}));</span><br>
+                    <br>
+                    <span class="code-comment">// Additional headers</span><br>
+                    app.<span>use</span>((req, res, next) => {<br>
+                    &nbsp;&nbsp;res.<span>setHeader</span>(<span class="code-string">'X-Content-Type-Options'</span>, <span class="code-string">'nosniff'</span>);<br>
+                    &nbsp;&nbsp;res.<span>setHeader</span>(<span class="code-string">'X-Frame-Options'</span>, <span class="code-string">'DENY'</span>);<br>
+                    &nbsp;&nbsp;res.<span>setHeader</span>(<span class="code-string">'Referrer-Policy'</span>, <span class="code-string">'strict-origin-when-cross-origin'</span>);<br>
+                    &nbsp;&nbsp;next();<br>
+                    <span>});</span>
+                </div>
+
+                <h3 style="color: var(--tech-blue-dark); margin: 2rem 0 1rem 0;">Secret Management</h3>
+                <div class="tech-table-container">
+                    <table class="tech-table">
+                        <thead>
+                            <tr>
+                                <th>Secret Type</th>
+                                <th>Storage Method</th>
+                                <th>Rotation Policy</th>
+                                <th>Access Control</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>JWT Secret</td>
+                                <td>Environment variable</td>
+                                <td>Per deployment</td>
+                                <td>Backend only</td>
+                            </tr>
+                            <tr>
+                                <td>Database URI</td>
+                                <td>Environment variable</td>
+                                <td>When compromised</td>
+                                <td>Backend only</td>
+                            </tr>
+                            <tr>
+                                <td>Admin credentials</td>
+                                <td>Hashed in database</td>
+                                <td>User-initiated</td>
+                                <td>Hashed + Salted</td>
+                            </tr>
+                            <tr>
+                                <td>API Keys (future)</td>
+                                <td>Environment variable</td>
+                                <td>Quarterly</td>
+                                <td>Minimal access</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment Tab -->
+        <div class="tech-tab-content" id="deployment">
+            <div class="tech-section">
+                <h2 class="section-title"><i class="fas fa-rocket"></i> Deployment & DevOps</h2>
+                
+                <h3 style="color: var(--tech-blue-dark); margin: 2rem 0 1rem 0;">Development Timeline (40 Hours)</h3>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Micro-Sprint 1: Foundation</h4>
+                            <p><strong>Hours:</strong> 10</p>
+                            <ul>
+                                <li>Project setup & configuration</li>
+                                <li>Database schema design</li>
+                                <li>Basic Express server with TypeScript</li>
+                                <li>MongoDB connection setup</li>
+                            </ul>
+                        </div>
+                        <div class="timeline-marker">W1</div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Micro-Sprint 2: Core Features</h4>
+                            <p><strong>Hours:</strong> 10</p>
+                            <ul>
+                                <li>User authentication (JWT)</li>
+                                <li>Product API endpoints</li>
+                                <li>React frontend setup</li>
+                                <li>Basic product listing page</li>
+                            </ul>
+                        </div>
+                        <div class="timeline-marker">W2</div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Micro-Sprint 3: Commerce</h4>
+                            <p><strong>Hours:</strong> 10</p>
+                            <ul>
+                                <li>Shopping cart functionality</li>
+                                <li>Checkout process</li>
+                                <li>Order management API</li>
+                                <li>Admin panel basics</li>
+                            </ul>
+                        </div>
+                        <div class="timeline-marker">W3</div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Micro-Sprint 4: Polish</h4>
+                            <p><strong>Hours:</strong> 10</p>
+                            <ul>
+                                <li>User profile management</li>
+                                <li>Order history</li>
+                                <li>Security hardening</li>
+                                <li>Deployment preparation</li>
+                            </ul>
+                        </div>
+                        <div class="timeline-marker">W4</div>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--tech-blue-dark); margin: 3rem 0 1rem 0;">Deployment Architecture</h3>
+                <div class="tech-table-container">
+                    <table class="tech-table">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Service</th>
+                                <th>Tier</th>
+                                <th>Cost</th>
+                                <th>Setup Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Frontend Hosting</td>
+                                <td>Vercel / Netlify</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>30 min</td>
+                            </tr>
+                            <tr>
+                                <td>Backend Hosting</td>
+                                <td>Render / Railway</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>45 min</td>
+                            </tr>
+                            <tr>
+                                <td>Database</td>
+                                <td>MongoDB Atlas</td>
+                                <td>M0 Free</td>
+                                <td>$0</td>
+                                <td>20 min</td>
+                            </tr>
+                            <tr>
+                                <td>Domain</td>
+                                <td>Custom (optional)</td>
+                                <td>Paid</td>
+                                <td>$10-15/yr</td>
+                                <td>15 min</td>
+                            </tr>
+                            <tr>
+                                <td>SSL Certificate</td>
+                                <td>Let's Encrypt</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>10 min</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="color: var(--tech-blue-dark); margin: 2rem 0 1rem 0;">Environment Variables</h3>
+                <div class="code-block">
+                    <span class="code-comment"># .env.example file</span><br>
+                    <span>NODE_ENV=development</span><br>
+                    <span>PORT=5000</span><br>
+                    <br>
+                    <span class="code-comment"># Database</span><br>
+                    <span>MONGODB_URI=mongodb+srv://...</span><br>
+                    <br>
+                    <span class="code-comment"># JWT</span><br>
+                    <span>JWT_SECRET=your-super-secret-jwt-key-change-this</span><br>
+                    <span>JWT_EXPIRE=24h</span><br>
+                    <br>
+                    <span class="code-comment"># Frontend URL (for CORS)</span><br>
+                    <span>CLIENT_URL=http://localhost:3000</span><br>
+                </div>
+
+                <div style="background: #fff3cd; padding: 1.5rem; border-radius: var(--tech-radius); margin-top: 2rem; border-left: 5px solid var(--tech-orange);">
+                    <h4><i class="fas fa-exclamation-circle"></i> Critical Deployment Notes</h4>
+                    <p><strong>Budget Constraint:</strong> All services must use free tiers due to $0 budget</p>
+                    <p><strong>Time Constraint:</strong> Deployment must be automated and simple</p>
+                    <p><strong>Team Skill:</strong> Deployment tasks assigned to most experienced team members</p>
+                    <p><strong>Monitoring:</strong> Basic error tracking with free services (Sentry free tier)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 3rem; color: var(--tech-gray); font-size: 0.9rem; margin-top: 3rem; border-top: 2px solid var(--tech-border);">
+            <p><strong>Fashion Boutique Online Store - Technical Requirements Document</strong></p>
+            <p>Version 1.0 | Generated based on FRD and project constraints | Last Updated: October 26, 2023</p>
+            <div style="margin-top: 1.5rem;">
+                <button id="techPrintBtn" style="background: var(--tech-blue); color: white; border: none; padding: 0.8rem 2rem; border-radius: var(--tech-radius); cursor: pointer; margin: 0 0.5rem; font-weight: 600;">
+                    <i class="fas fa-print"></i> Print TRD
+                </button>
+                <button id="toggleView" style="background: var(--tech-green); color: white; border: none; padding: 0.8rem 2rem; border-radius: var(--tech-radius); cursor: pointer; margin: 0 0.5rem; font-weight: 600;">
+                    <i class="fas fa-eye"></i> Toggle Dark Mode
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tech-tab');
+            const tabContents = document.querySelectorAll('.tech-tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetId = tab.getAttribute('data-target');
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                    
+                    // Add visual feedback
+                    tab.style.animation = 'none';
+                    setTimeout(() => {
+                        tab.style.animation = 'pulse 0.5s';
+                    }, 10);
+                });
+            });
+            
+            // Print functionality
+            document.getElementById('techPrintBtn').addEventListener('click', () => {
+                window.print();
+            });
+            
+            // Dark mode toggle
+            let darkMode = false;
+            document.getElementById('toggleView').addEventListener('click', () => {
+                darkMode = !darkMode;
+                document.body.style.backgroundColor = darkMode ? '#1a1a2e' : '#f5f7fa';
+                document.body.style.color = darkMode ? '#e0e0e0' : 'var(--tech-blue)';
+                
+                const sections = document.querySelectorAll('.tech-section');
+                sections.forEach(section => {
+                    section.style.backgroundColor = darkMode ? '#16213e' : 'white';
+                    section.style.color = darkMode ? '#e0e0e0' : 'inherit';
+                });
+                
+                const cards = document.querySelectorAll('.stack-card, .hardware-card, .security-item');
+                cards.forEach(card => {
+                    card.style.backgroundColor = darkMode ? '#0f3460' : 'inherit';
+                    card.style.color = darkMode ? '#e0e0e0' : 'inherit';
+                });
+            });
+            
+            // Interactive skill meters
+            const skillFills = document.querySelectorAll('.skill-fill');
+            skillFills.forEach(fill => {
+                const skill = fill.getAttribute('data-skill');
+                fill.style.width = '0%';
+                setTimeout(() => {
+                    fill.style.width = skill;
+                }, 500);
+            });
+            
+            // Architecture layer animation
+            const layerBoxes = document.querySelectorAll('.layer-box');
+            layerBoxes.forEach((box, index) => {
+                setTimeout(() => {
+                    box.style.opacity = '0';
+                    box.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        box.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        box.style.opacity = '1';
+                        box.style.transform = 'translateY(0)';
+                    }, 100 * index);
+                }, 100);
+            });
+            
+            // Add click animation to tables
+            const tableRows = document.querySelectorAll('.tech-table tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    this.style.backgroundColor = 'rgba(44, 62, 80, 0.1)';
+                    setTimeout(() => {
+                        this.style.backgroundColor = '';
+                    }, 300);
+                });
+            });
+            
+            // Auto-scroll to active tab content
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey) {
+                    switch(e.key) {
+                        case '1':
+                            document.querySelector('[data-target="architecture"]').click();
+                            break;
+                        case '2':
+                            document.querySelector('[data-target="stack"]').click();
+                            break;
+                        case '3':
+                            document.querySelector('[data-target="api"]').click();
+                            break;
+                        case '4':
+                            document.querySelector('[data-target="database"]').click();
+                            break;
+                        case '5':
+                            document.querySelector('[data-target="security"]').click();
+                            break;
+                        case '6':
+                            document.querySelector('[data-target="deployment"]').click();
+                            break;
+                        case 'p':
+                            if (e.shiftKey) window.print();
+                            break;
+                    }
+                }
+            });
+            
+            // Show keyboard shortcut hint
+            setTimeout(() => {
+                const hint = document.createElement('div');
+                hint.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: var(--tech-blue);
+                    color: white;
+                    padding: 10px 15px;
+                    border-radius: var(--tech-radius);
+                    font-size: 12px;
+                    z-index: 1000;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                `;
+                hint.innerHTML = '<strong>Tip:</strong> Use Ctrl+1 to Ctrl+6 to navigate tabs';
+                document.body.appendChild(hint);
+                
+                setTimeout(() => {
+                    hint.style.opacity = '0';
+                    hint.style.transition = 'opacity 1s';
+                    setTimeout(() => hint.remove(), 1000);
+                }, 5000);
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
